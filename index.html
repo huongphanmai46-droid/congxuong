@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Ôn tập CX2 – Giao tiếp công xưởng (Bài 1–3)</title>
+<style>
+:root{--bg:#f4efe4;--sf:#fffdf8;--sf2:#f8f2e4;--ink:#1c2331;--mu:#636a7a;--ln:#ded6c2;--ac:#d9480f;--acs:#fde8d9;--aci:#fff;--nv:#243b5e;--nvs:#e6ebf4;--ok:#2b8a3e;--oks:#e1f3e4;--bd:#c92a2a;--bds:#fbe4e4;
+--sh:0 1px 2px rgba(28,35,49,.06),0 10px 28px rgba(28,35,49,.09);--zh:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#12151c;--sf:#1b2029;--sf2:#222835;--ink:#eceff5;--mu:#9aa2b5;--ln:#2e3545;--ac:#ff8a3d;--acs:#3a2616;--aci:#1b1209;--nv:#9bb8ea;--nvs:#1f2a3f;--ok:#5bd37a;--oks:#173222;--bd:#ff7b7b;--bds:#3a1c1c;--sh:0 10px 28px rgba(0,0,0,.4)}}
+*{box-sizing:border-box}html{font-size:16px}html.big{font-size:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5}
+button{font:inherit;color:inherit;cursor:pointer}
+.top{background:#243b5e;color:#fff;position:relative;padding:14px 14px 20px}
+.top::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(135deg,#ffa94d 0 12px,#1c2331 12px 24px)}
+.top-in{max-width:920px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between}
+.top h1{margin:0;font-size:1.2rem;line-height:1.2}.top small{opacity:.8;display:block;font-weight:400;font-size:.8rem}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+.nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:8px;padding:6px 12px;font-weight:600;font-size:.88rem}
+.wrap{max-width:920px;margin:0 auto;padding:16px 12px 40px}
+h2{margin:6px 0 4px;font-size:1.35rem}h3{margin:0 0 4px}
+.mu{color:var(--mu);font-size:.92rem}
+.btn{border:2px solid var(--ln);background:var(--sf);border-radius:12px;padding:12px 16px;min-height:3.1rem;font-weight:700;font-size:1rem}
+.btn:hover:not(:disabled){filter:brightness(.97)}.btn:disabled{opacity:.45;cursor:default}
+.btn.cta{background:var(--ac);border-color:var(--ac);color:var(--aci)}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.sm{min-height:0;padding:5px 12px;font-size:.85rem;border-width:1px}
+.btn.ghost{background:transparent}
+button:focus-visible,textarea:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:12px}
+.lcard,.setup,.qcard,.panel{background:var(--sf);border:1px solid var(--ln);border-radius:16px;box-shadow:var(--sh);padding:16px;position:relative;overflow:hidden}
+.lcard::before,.qcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--ac)}
+.lcard .btns{display:grid;gap:8px;margin-top:12px}
+.lstat{font-size:.88rem;color:var(--mu);margin-top:6px;min-height:2.6em}
+.tip{background:var(--nvs);border-radius:12px;padding:10px 14px;font-size:.92rem;margin-top:10px}
+.chips,.pills{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip,.pill{border:2px solid var(--ln);background:var(--sf);border-radius:999px;padding:9px 16px;font-weight:700}
+.chip[aria-pressed=true],.pill[aria-pressed=true]{border-color:var(--ac);background:var(--acs);color:var(--ac)}
+.zp{display:inline-flex;flex-direction:column;align-items:center;line-height:1.2;text-align:center}
+.zp.left{align-items:flex-start;text-align:left}
+.zp .zh{font-family:var(--zh);font-size:1.5rem;font-weight:500}
+.zp .py{color:var(--ac);font-style:italic;font-size:.95rem}
+.zp.sm .zh{font-size:1.3rem}.zp.sm .py{font-size:.82rem}
+.zp.lg .zh{font-size:clamp(2rem,6vw,2.9rem)}.zp.lg .py{font-size:1.1rem}
+.zp.xl .zh{font-size:clamp(3.2rem,11vw,5rem)}.zp.xl .py{font-size:1.3rem}
+.rh{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--mu);margin-bottom:10px;flex-wrap:wrap}
+.rh .prog{flex:1;min-width:80px}.rh b{color:var(--ink)}
+.prog{height:7px;background:var(--ln);border-radius:7px;overflow:hidden}.prog i{display:block;height:100%;background:var(--ac)}
+.kind{font-size:.78rem;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.5px}
+.qlabel{font-weight:700;margin:4px 0 8px}
+.qz{display:flex;justify-content:center;align-items:center;gap:10px;margin:6px 0}
+.qvi{text-align:center;font-size:clamp(1.3rem,4.5vw,1.8rem);font-weight:700;margin:6px 0}
+.qhint{text-align:center;color:var(--mu)}
+.opts{display:grid;gap:10px;margin-top:14px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;border:2px solid var(--ln);background:var(--sf);border-radius:14px;padding:12px 14px;min-height:3.4rem;width:100%}
+.opt:hover:not(:disabled){border-color:var(--ac)}.opt:disabled{cursor:default}
+.opt .k{flex:none;width:30px;height:30px;border-radius:50%;background:var(--sf2);display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:var(--mu)}
+.opt .t{font-weight:600;font-size:1.1rem}.opt .vv{display:block;color:var(--mu);font-size:.88rem}
+.opt.ok{border-color:var(--ok);background:var(--oks)}.opt.ok .k{background:var(--ok);color:#fff}
+.opt.bd{border-color:var(--bd);background:var(--bds)}.opt.bd .k{background:var(--bd);color:#fff}
+.fb{margin-top:14px;border-radius:12px;padding:12px 14px;background:var(--nvs)}.fb.ok{background:var(--oks)}.fb.bd{background:var(--bds)}
+.fb h4{margin:0 0 6px}.ln{display:flex;gap:10px;margin:8px 0;align-items:flex-start}.ln>b{color:var(--ac);min-width:1.4em}
+.ln .vi{color:var(--mu);font-size:.95rem;margin-top:2px}.nt{margin-top:6px;font-size:.92rem}
+.ansline,.bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.ansline{min-height:4.6rem;border:2px dashed var(--ln);border-radius:12px;padding:8px;align-items:center}
+.ansline.ok{border-color:var(--ok);background:var(--oks)}.ansline.bd{border-color:var(--bd);background:var(--bds)}
+.ph{color:var(--mu);font-size:.9rem}
+.tk{border:2px solid var(--ln);background:var(--sf);border-radius:12px;padding:6px 12px;min-height:3.2rem}
+.tk:hover:not(:disabled){border-color:var(--ac)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.full{width:100%;margin-top:12px}
+textarea{width:100%;font:inherit;background:var(--sf);color:var(--ink);border:2px solid var(--ln);border-radius:12px;padding:10px;margin-top:10px;resize:vertical}
+.mine{margin-top:10px;font-size:.92rem;background:var(--sf2);border-radius:10px;padding:8px 12px}
+.spk{border:1px solid var(--ln);background:var(--sf);color:var(--ac);width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;padding:0;flex:none}
+.spk svg{width:17px;height:17px}.nospeech .spk{display:none}
+.ring{--p:0;width:150px;height:150px;border-radius:50%;margin:8px auto;display:grid;place-items:center;background:conic-gradient(var(--ok) calc(var(--p)*1%),var(--ln) 0)}
+.ring div{width:118px;height:118px;border-radius:50%;background:var(--sf);display:grid;place-items:center;text-align:center;line-height:1.1}.ring b{font-size:2rem}.ring span{font-size:.8rem;color:var(--mu)}
+.bars{display:grid;gap:8px;margin:10px 0}.bar{display:grid;grid-template-columns:8.5rem 1fr 3.6rem;gap:8px;align-items:center;font-size:.9rem}
+.bar .prog{height:10px}.bar .prog i{background:var(--ok)}
+.wi{border:1px solid var(--ln);border-left:5px solid var(--bd);border-radius:10px;padding:10px 12px;background:var(--sf);margin-top:10px}
+.wi .kd{font-size:.75rem;font-weight:800;color:var(--bd);text-transform:uppercase}
+.acts{display:grid;gap:8px;margin-top:16px}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem;margin:8px 0}.tbl th,.tbl td{border-bottom:1px solid var(--ln);padding:8px 6px;text-align:center}.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl-w{overflow-x:auto}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.tabs button{border:2px solid var(--ln);background:var(--sf);border-radius:10px;padding:8px 14px;font-weight:700}
+.tabs button[aria-pressed=true]{background:var(--nv);border-color:var(--nv);color:#fff}
+@media (prefers-color-scheme:dark){.tabs button[aria-pressed=true]{color:#12151c}}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.vc{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:10px;text-align:center}.vc .vi{font-weight:600;margin-top:4px}
+.sent{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:10px 12px;margin:8px 0;display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
+.sent .vi{color:var(--mu);margin-top:2px}
+.dh{font-weight:800;color:var(--nv);margin:16px 0 4px}
+.pat{font-family:var(--zh);font-weight:700;font-size:1.15rem;border:1px dashed var(--nv);border-radius:8px;padding:6px 12px;margin:8px 0;display:inline-block}.pat .py{display:block;font-family:var(--sans);font-weight:400;font-size:.85rem;color:var(--ac);font-style:italic}
+.lst{display:grid;grid-template-columns:auto auto 1fr;gap:4px 12px;align-items:baseline;margin:6px 0}.lst .zh{font-family:var(--zh);font-size:1.2rem;font-weight:600}.lst .p{color:var(--ac);font-style:italic}
+@media (max-width:560px){.bar{grid-template-columns:6.5rem 1fr 3rem}.two{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <h1>Ôn tập CX2 – Giao tiếp công xưởng<small>Bài 1 · Bài 2 · Bài 3 · Ôn tập tổng hợp</small></h1>
+  <div class="nav"><button data-act="home">Trang chủ</button><button data-act="stats">Thống kê</button><button data-act="big" id="bigbtn">Chữ lớn (chiếu lớp)</button></div>
+</div></header>
+<main class="wrap" id="app"></main>
+<noscript><p style="padding:20px">Cần bật JavaScript để sử dụng công cụ ôn tập.</p></noscript>
+<script>
+"use strict";
+const P = s => s.trim().split("\n").map(l => { const [zh,py,vi] = l.split("|"); return {zh,py,vi}; });
+
+const VOCAB = {
+  "1": P(`
+上班|shàngbān|đi làm
+下班|xiàbān|tan làm
+开工|kāigōng|bắt đầu làm
+停工|tínggōng|dừng việc
+加快|jiākuài|tăng tốc; đẩy nhanh
+放慢|fàngmàn|làm chậm
+到位|dàowèi|vào vị trí / làm đúng vị trí
+排队|páiduì|xếp hàng
+排班|páibān|sắp ca làm
+打卡|dǎkǎ|chấm công
+上报|shàngbào|báo lên
+交接|jiāojiē|bàn giao
+协作|xiézuò|phối hợp
+支援|zhīyuán|hỗ trợ
+指挥|zhǐhuī|chỉ huy / chỉ đạo
+指示|zhǐshì|chỉ thị
+确认|quèrèn|xác nhận
+通知|tōngzhī|thông báo
+记录|jìlù|ghi lại
+完成|wánchéng|hoàn thành
+继续|jìxù|tiếp tục
+暂停|zàntíng|tạm dừng
+安排|ānpái|sắp xếp
+负责|fùzé|phụ trách
+工具|gōngjù|dụng cụ
+材料|cáiliào|vật liệu
+设备|shèbèi|thiết bị
+标准|biāozhǔn|tiêu chuẩn
+流程|liúchéng|quy trình
+提醒|tíxǐng|nhắc nhở`),
+  "2": P(`
+工位|gōngwèi|vị trí làm
+工序|gōngxù|công đoạn
+流水线|liúshuǐxiàn|dây chuyền
+生产线|shēngchǎnxiàn|dây chuyền sản xuất
+加工|jiāgōng|gia công
+包装|bāozhuāng|đóng gói
+检查|jiǎnchá|kiểm tra
+分拣|fēnjiǎn|phân loại
+入库|rùkù|nhập kho
+出库|chūkù|xuất kho
+仓库|cāngkù|kho
+物料|wùliào|vật liệu
+零件|língjiàn|linh kiện
+成品|chéngpǐn|thành phẩm
+半成品|bànchéngpǐn|bán thành phẩm
+批次|pīcì|lô hàng
+数量|shùliàng|số lượng
+尺寸|chǐcùn|kích thước
+规格|guīgé|quy cách
+包材|bāocái|vật liệu đóng gói
+材料|cáiliào|nguyên liệu
+刀片|dāopiàn|lưỡi dao / cutter
+胶带|jiāodài|băng keo
+标签|biāoqiān|nhãn / label
+条码|tiáomǎ|mã vạch
+记录表|jìlù biǎo|bảng ghi
+工牌|gōngpái|thẻ công nhân
+操作|cāozuò|thao tác
+调整|tiáozhěng|điều chỉnh
+标记|biāojì|đánh dấu`)
+};
+
+const SENT = {
+  "1": [
+    ["Nhóm 1 · Tốc độ & tạm dừng", P(`
+开工了，大家到位准备开始做。|Kāigōng le, dàjiā dàowèi zhǔnbèi kāishǐ zuò.|Bắt đầu làm rồi, mọi người vào vị trí chuẩn bị làm.
+今天订单多，大家快一点做。|Jīntiān dìngdān duō, dàjiā kuài yīdiǎn zuò.|Hôm nay đơn nhiều, mọi người làm nhanh chút.
+不用太快，小心别做错。|Bùyòng tài kuài, xiǎoxīn bié zuò cuò.|Không cần quá nhanh, cẩn thận đừng làm sai.
+先暂停一下，我检查一下设备。|Xiān zàntíng yíxià, wǒ jiǎnchá yíxià shèbèi.|Tạm dừng một chút, tôi kiểm tra thiết bị.`)],
+    ["Nhóm 2 · Tiến độ & hỗ trợ", P(`
+这个工序做好了吗？|Zhège gōngxù zuòhǎo le ma?|Công đoạn này làm xong chưa?
+还没做好，再等几分钟。|Hái méi zuòhǎo, zài děng jǐ fēnzhōng.|Chưa xong, đợi thêm vài phút nữa.
+这边人不够，来帮一下。|Zhèbiān rén búgòu, lái bāng yíxià.|Bên này thiếu người, qua hỗ trợ chút.
+谁负责这个位置？|Shéi fùzé zhège wèizhì?|Ai phụ trách vị trí này?`)],
+    ["Nhóm 3 · Dụng cụ & làm lại", P(`
+工具不够，去仓库拿一下。|Gōngjù búgòu, qù cāngkù ná yíxià.|Dụng cụ không đủ, đi kho lấy thêm.
+这个要重新做一次。|Zhège yào chóngxīn zuò yícì.|Cái này cần làm lại một lần nữa.
+这些数据记下来，等一下用。|Zhèxiē shùjù jì xiàlái, děng yíxià yòng.|Những dữ liệu này ghi lại, lát nữa dùng.
+机器要调整一下再继续做。|Jīqì yào tiáozhěng yíxià zài jìxù zuò.|Máy phải chỉnh lại rồi mới làm tiếp.`)]
+  ],
+  "2": [
+    ["Nhóm 1 · Vị trí & dây chuyền", P(`
+我在这个工位工作。|Wǒ zài zhège gōngwèi gōngzuò.|Tôi làm việc ở vị trí này.
+这一道工序比较简单。|Zhè yídào gōngxù bǐjiào jiǎndān.|Công đoạn này tương đối đơn giản.
+我们在流水线上加工。|Wǒmen zài liúshuǐxiàn shàng jiāgōng.|Chúng tôi gia công trên dây chuyền.
+这批要在生产线上完成。|Zhè pī yào zài shēngchǎnxiàn shàng wánchéng.|Lô này phải hoàn thành trên dây chuyền sản xuất.`)],
+    ["Nhóm 2 · Kiểm tra & nhập kho", P(`
+成品做好以后要包装。|Chéngpǐn zuòhǎo yǐhòu yào bāozhuāng.|Thành phẩm làm xong phải đóng gói.
+半成品需要检查一下。|Bànchéngpǐn xūyào jiǎnchá yíxià.|Bán thành phẩm cần kiểm tra một chút.
+原材料在仓库里面。|Yuán cáiliào zài cāngkù lǐmiàn.|Nguyên liệu ở trong kho.
+这批物料已经入库了。|Zhè pī wùliào yǐjīng rùkù le.|Lô vật liệu này đã nhập kho rồi.`)],
+    ["Nhóm 3 · Xuất kho & quy cách", P(`
+成品下午会出库。|Chéngpǐn xiàwǔ huì chūkù.|Thành phẩm chiều sẽ xuất kho.
+这批零件数量不多。|Zhè pī língjiàn shùliàng bù duō.|Lô linh kiện này số lượng không nhiều.
+尺寸和规格要一样。|Chǐcùn hé guīgé yào yíyàng.|Kích thước và quy cách phải giống nhau.
+包材不够了，再拿一些。|Bāocái búgòu le, zài ná yīxiē.|Vật liệu đóng gói không đủ, lấy thêm chút.`)]
+  ]
+};
+
+const DL = s => s.trim().split("\n").map(l => { const [spk,zh,py,vi] = l.split("|"); return {spk,zh,py,vi}; });
+const DLG = [
+  {l:"1", title:"Hội thoại 1 — Bắt đầu làm + tốc độ", lines: DL(`
+A|开工了，大家到位准备开始做。|Kāigōng le, dàjiā dàowèi zhǔnbèi kāishǐ zuò.|Bắt đầu làm rồi, mọi người vào vị trí chuẩn bị làm.
+B|好的，我这边准备好了。|Hǎo de, wǒ zhèbiān zhǔnbèi hǎo le.|Được, bên tôi chuẩn bị xong rồi.
+A|今天订单多，速度要快一点。|Jīntiān dìngdān duō, sùdù yào kuài yīdiǎn.|Hôm nay đơn nhiều, làm nhanh chút.
+B|明白，我会加快一点。|Míngbái, wǒ huì jiākuài yīdiǎn.|Hiểu rồi, tôi sẽ làm nhanh hơn.
+A|但不用太急，小心别做错。|Dàn bùyòng tài jí, xiǎoxīn bié zuò cuò.|Nhưng đừng quá vội, cẩn thận đừng làm sai.
+B|没问题，我会注意的。|Méi wèntí, wǒ huì zhùyì de.|Không vấn đề, tôi sẽ chú ý.`)},
+  {l:"1", title:"Hội thoại 2 — Thiếu người + hỗ trợ", lines: DL(`
+A|这边人不够，来帮一下。|Zhèbiān rén búgòu, lái bāng yíxià.|Bên này thiếu người, qua hỗ trợ chút.
+B|好，我做完这批就过去。|Hǎo, wǒ zuòwán zhè pī jiù guòqù.|Được, tôi làm xong lô này rồi qua.
+A|这个任务有点急，要快一点做。|Zhège rènwù yǒudiǎn jí, yào kuài yīdiǎn zuò.|Nhiệm vụ này hơi gấp, phải làm nhanh chút.
+B|明白，我马上过去支援。|Míngbái, wǒ mǎshàng guòqù zhīyuán.|Hiểu rồi, tôi qua hỗ trợ ngay.
+A|做好以后记得通知一下我。|Zuòhǎo yǐhòu jìdé tōngzhī yíxià wǒ.|Làm xong thì nhớ báo tôi.
+B|好的，我会通知你的。|Hǎo de, wǒ huì tōngzhī nǐ de.|Được, tôi sẽ báo.`)},
+  {l:"1", title:"Hội thoại 3 — Hỏi tiến độ + hỗ trợ", lines: DL(`
+A|你这批做到哪儿了？|Nǐ zhè pī zuò dào nǎr le?|Lô này bạn làm tới đâu rồi?
+B|做到一半了，还差几件。|Zuò dào yíbàn le, hái chà jǐ jiàn.|Làm được một nửa rồi, còn thiếu vài cái.
+A|要不要我帮你？|Yào bú yào wǒ bāng nǐ?|Có cần tôi giúp bạn không?
+B|那太好了，谢谢你。|Nà tài hǎo le, xièxie nǐ.|Thế thì tốt quá, cảm ơn bạn.
+A|好，那我负责这边，你负责那边。|Hǎo, nà wǒ fùzé zhèbiān, nǐ fùzé nàbiān.|Ok, tôi làm bên này, bạn làm bên kia.
+B|没问题，做完了我会跟你说。|Méi wèntí, zuò wán le wǒ huì gēn nǐ shuō.|Không vấn đề, làm xong tôi sẽ nói bạn.`)},
+  {l:"2", title:"Hội thoại 1 — Phân công công đoạn", lines: DL(`
+A|你负责这一道工序吗？|Nǐ fùzé zhè yídào gōngxù ma?|Bạn phụ trách công đoạn này phải không?
+B|对，我在这个工位做加工。|Duì, wǒ zài zhège gōngwèi zuò jiāgōng.|Đúng, tôi gia công ở vị trí này.
+A|这批要在生产线上做完。|Zhè pī yào zài shēngchǎnxiàn shàng zuò wán.|Lô này phải làm xong trên dây chuyền.
+B|明白，我会尽快完成。|Míngbái, wǒ huì jǐnkuài wánchéng.|Rõ rồi, tôi sẽ làm xong sớm.
+A|做好以后记得检查一下。|Zuòhǎo yǐhòu jìdé jiǎnchá yíxià.|Làm xong nhớ kiểm tra một chút.
+B|没问题，我会检查的。|Méi wèntí, wǒ huì jiǎnchá de.|Không vấn đề, tôi sẽ kiểm tra.`)},
+  {l:"2", title:"Hội thoại 2 — Kho + vật liệu", lines: DL(`
+A|物料到了没有？|Wùliào dào le méiyǒu?|Vật liệu đến chưa?
+B|已经到了，现在在仓库。|Yǐjīng dào le, xiànzài zài cāngkù.|Đến rồi, hiện đang ở kho.
+A|要把材料入库吗？|Yào bǎ cáiliào rùkù ma?|Có cần nhập kho vật liệu không?
+B|要入库，等一下我去登记。|Yào rùkù, děng yíxià wǒ qù dēngjì.|Phải nhập kho, lát nữa tôi đi ghi nhận.
+A|登记完以后通知一下我。|Dēngjì wán yǐhòu tōngzhī yíxià wǒ.|Ghi xong thì báo tôi nhé.
+B|好的，没问题。|Hǎo de, méi wèntí.|Ok, không vấn đề.`)},
+  {l:"2", title:"Hội thoại 3 — Đóng gói + nhãn + mã vạch", lines: DL(`
+A|成品做好了吗？|Chéngpǐn zuòhǎo le ma?|Thành phẩm làm xong chưa?
+B|做好了，现在在包装。|Zuòhǎo le, xiànzài zài bāozhuāng.|Xong rồi, giờ đang đóng gói.
+A|标签到位了吗？|Biāoqiān dàowèi le ma?|Nhãn đã dán đúng vị trí chưa?
+B|已经贴好了。|Yǐjīng tiēhǎo le.|Dán xong rồi.
+A|条码对得上吗？|Tiáomǎ duì de shàng ma?|Mã vạch khớp không?
+B|对得上，可以出库了。|Duì de shàng, kěyǐ chūkù le.|Khớp rồi, có thể xuất kho.`)}
+];
+
+/* Ngữ pháp: blocks pat = công thức, note = giải thích, ex = ví dụ, list = bảng */
+const GRAM = {
+  "1": [
+    {title:"要 (yào)", meaning:"Trợ động từ: muốn / sẽ / định", blocks:[
+      {k:"pat", v:"S + 要 + V + O"},
+      {k:"note", v:"Diễn đạt ý định / nhu cầu / kế hoạch trong công việc."},
+      {k:"ex", zh:"我们下午要开工。", py:"Wǒmen xiàwǔ yào kāigōng.", vi:"Chiều nay chúng tôi định bắt đầu làm."},
+      {k:"ex", zh:"老板要我们加快速度。", py:"Lǎobǎn yào wǒmen jiākuài sùdù.", vi:"Sếp muốn chúng tôi tăng tốc độ."}
+    ]},
+    {title:"最 (zuì)", meaning:"Phó từ chỉ mức độ: nhất", blocks:[
+      {k:"pat", v:"最 + Tính từ / Động từ"},
+      {k:"note", v:"Chỉ mức độ cao nhất."},
+      {k:"ex", zh:"早班最忙。", py:"Zǎobān zuì máng.", vi:"Ca sáng bận nhất."},
+      {k:"ex", zh:"这个组最有效率。", py:"Zhège zǔ zuì yǒu xiàolǜ.", vi:"Tổ này hiệu quả nhất."}
+    ]},
+    {title:"几 (jǐ) / 几十 (jǐshí)", meaning:"Diễn đạt số & lượng: mấy / vài / mấy chục", blocks:[
+      {k:"pat", v:"几 + Lượng từ + Danh từ"},
+      {k:"note", v:"(1) Số lượng nhỏ hơn 10: mấy / vài."},
+      {k:"ex", zh:"车间有几个人？", py:"Chējiān yǒu jǐ gè rén?", vi:"Trong xưởng có mấy người?"},
+      {k:"ex", zh:"我想拿几件工具。", py:"Wǒ xiǎng ná jǐ jiàn gōngjù.", vi:"Tôi muốn lấy vài dụng cụ."},
+      {k:"pat", v:"几十 + Lượng từ + Danh từ"},
+      {k:"note", v:"(2) Số lượng khoảng mấy chục."},
+      {k:"ex", zh:"我们组有几十名工人。", py:"Wǒmen zǔ yǒu jǐshí míng gōngrén.", vi:"Tổ chúng tôi có mấy chục công nhân."},
+      {k:"ex", zh:"仓库有几十箱材料。", py:"Cāngkù yǒu jǐshí xiāng cáiliào.", vi:"Kho có mấy chục thùng vật liệu."}
+    ]}
+  ],
+  "2": [
+    {title:"是不是 (shì bú shì)", meaning:"Câu hỏi xác nhận thông tin", blocks:[
+      {k:"pat", v:"S + 是不是 + …？"},
+      {k:"note", v:"Hỏi xác nhận đúng hay không, không mang cảm xúc mạnh."},
+      {k:"ex", zh:"他是不是负责这道工序？", py:"Tā shì bú shì fùzé zhè dào gōngxù?", vi:"Anh ấy có phải phụ trách công đoạn này không?"},
+      {k:"ex", zh:"这批是不是要今天做完？", py:"Zhè pī shì bú shì yào jīntiān zuò wán?", vi:"Lô này có phải cần làm xong trong hôm nay không?"}
+    ]},
+    {title:"每 (měi)", meaning:"Đại từ: mỗi", blocks:[
+      {k:"pat", v:"每 + Lượng từ + Danh từ"},
+      {k:"note", v:"Diễn đạt tần suất hoặc số lượng theo “mỗi …”."},
+      {k:"ex", zh:"我们每天做两批。", py:"Wǒmen měi tiān zuò liǎng pī.", vi:"Mỗi ngày chúng tôi làm hai lô."},
+      {k:"ex", zh:"他们每小时检查一次机器。", py:"Tāmen měi xiǎoshí jiǎnchá yí cì jīqì.", vi:"Mỗi giờ họ kiểm tra máy một lần."}
+    ]},
+    {title:"多 + … (duō)", meaning:"Câu hỏi số lượng: bao nhiêu / bao lâu / bao xa…", blocks:[
+      {k:"note", v:"Hỏi mức độ / kích thước / số lượng / khoảng cách / thời gian. Một số dạng thông dụng:"},
+      {k:"list", v:[["多大","duō dà","bao lớn / bao tuổi"],["多高","duō gāo","cao bao nhiêu"],["多远","duō yuǎn","xa bao nhiêu"],["多久","duō jiǔ","bao lâu"],["多长","duō cháng","dài bao nhiêu (vật)"],["多重","duō zhòng","nặng bao nhiêu"]]},
+      {k:"ex", zh:"这批多大？", py:"Zhè pī duō dà?", vi:"Lô này lớn bao nhiêu?"},
+      {k:"ex", zh:"仓库离这边多远？", py:"Cāngkù lí zhèbiān duō yuǎn?", vi:"Kho cách chỗ này bao xa?"}
+    ]}
+  ]
+};
+
+/* Phản xạ hỏi–đáp: [câu hỏi A, câu trả lời gợi ý, [3 đáp án sai]] */
+const REFLEX = {
+  "1": [
+    ["这批做到哪儿了？|Zhè pī zuò dào nǎr le?|Lô này làm tới đâu rồi?",
+     "做到一半了，还差几件。|Zuò dào yíbàn le, hái chà jǐ jiàn.|Làm được một nửa rồi, còn thiếu vài cái.",
+     ["工具在仓库里。|Gōngjù zài cāngkù lǐ.|Dụng cụ ở trong kho.","我们明天上班。|Wǒmen míngtiān shàngbān.|Ngày mai chúng tôi đi làm.","机器在那边。|Jīqì zài nàbiān.|Máy ở bên kia."]],
+    ["你需要帮忙吗？|Nǐ xūyào bāngmáng ma?|Bạn có cần giúp không?",
+     "需要，这边人不够。|Xūyào, zhèbiān rén búgòu.|Cần, bên này thiếu người.",
+     ["我下午下班。|Wǒ xiàwǔ xiàbān.|Chiều tôi tan làm.","这是我的工具。|Zhè shì wǒ de gōngjù.|Đây là dụng cụ của tôi.","我还没打卡。|Wǒ hái méi dǎkǎ.|Tôi chưa chấm công."]],
+    ["做好了没有？|Zuòhǎo le méiyǒu?|Làm xong chưa?",
+     "做好了，请检查一下。|Zuòhǎo le, qǐng jiǎnchá yíxià.|Làm xong rồi, mời kiểm tra một chút.",
+     ["在仓库里面。|Zài cāngkù lǐmiàn.|Ở trong kho.","我负责这个位置。|Wǒ fùzé zhège wèizhì.|Tôi phụ trách vị trí này.","明天下班以后去。|Míngtiān xiàbān yǐhòu qù.|Mai tan làm rồi đi."]],
+    ["机器有没有问题？|Jīqì yǒu méiyǒu wèntí?|Máy có vấn đề không?",
+     "没有问题，可以继续做。|Méiyǒu wèntí, kěyǐ jìxù zuò.|Không có vấn đề, có thể làm tiếp.",
+     ["我还差几件。|Wǒ hái chà jǐ jiàn.|Tôi còn thiếu vài cái.","工具不够，去仓库拿一下。|Gōngjù búgòu, qù cāngkù ná yíxià.|Dụng cụ không đủ, đi kho lấy thêm.","我负责这边。|Wǒ fùzé zhèbiān.|Tôi phụ trách bên này."]],
+    ["你负责这边吗？|Nǐ fùzé zhèbiān ma?|Bạn phụ trách bên này à?",
+     "对，我负责这边。|Duì, wǒ fùzé zhèbiān.|Đúng, tôi phụ trách bên này.",
+     ["做到一半了。|Zuò dào yíbàn le.|Làm được một nửa rồi.","再等几分钟。|Zài děng jǐ fēnzhōng.|Đợi thêm vài phút nữa.","工具不够。|Gōngjù búgòu.|Dụng cụ không đủ."]],
+    ["现在可以做了吗？|Xiànzài kěyǐ zuò le ma?|Bây giờ làm được chưa?",
+     "可以，开始做吧。|Kěyǐ, kāishǐ zuò ba.|Được, bắt đầu làm thôi.",
+     ["在仓库里面。|Zài cāngkù lǐmiàn.|Ở trong kho.","机器在那边。|Jīqì zài nàbiān.|Máy ở bên kia.","做到一半了。|Zuò dào yíbàn le.|Làm được một nửa rồi."]],
+    ["做完以后怎么办？|Zuò wán yǐhòu zěnme bàn?|Làm xong thì làm sao?",
+     "做完以后通知我。|Zuò wán yǐhòu tōngzhī wǒ.|Làm xong thì báo tôi.",
+     ["机器没有问题。|Jīqì méiyǒu wèntí.|Máy không có vấn đề.","在仓库里面。|Zài cāngkù lǐmiàn.|Ở trong kho.","我还没打卡。|Wǒ hái méi dǎkǎ.|Tôi chưa chấm công."]]
+  ],
+  "2": [
+    ["你在什么工位？|Nǐ zài shénme gōngwèi?|Bạn ở vị trí làm nào?",
+     "我在三号工位。|Wǒ zài sān hào gōngwèi.|Tôi ở vị trí số 3.",
+     ["要今天下午做完。|Yào jīntiān xiàwǔ zuò wán.|Phải làm xong chiều nay.","在仓库里面。|Zài cāngkù lǐmiàn.|Ở trong kho.","已经入库了。|Yǐjīng rùkù le.|Đã nhập kho rồi."]],
+    ["这批要做到什么时候？|Zhè pī yào zuò dào shénme shíhou?|Lô này phải làm đến khi nào?",
+     "要今天下午做完。|Yào jīntiān xiàwǔ zuò wán.|Phải làm xong chiều nay.",
+     ["在生产线上。|Zài shēngchǎnxiàn shàng.|Ở trên dây chuyền sản xuất.","我在三号工位。|Wǒ zài sān hào gōngwèi.|Tôi ở vị trí số 3.","数量不多。|Shùliàng bù duō.|Số lượng không nhiều."]],
+    ["半成品在哪儿？|Bàn chéngpǐn zài nǎr?|Bán thành phẩm ở đâu?",
+     "在仓库里面。|Zài cāngkù lǐmiàn.|Ở trong kho.",
+     ["要今天下午做完。|Yào jīntiān xiàwǔ zuò wán.|Phải làm xong chiều nay.","数量不多。|Shùliàng bù duō.|Số lượng không nhiều.","他负责这道工序。|Tā fùzé zhè dào gōngxù.|Anh ấy phụ trách công đoạn này."]],
+    ["成品做完了吗？|Chéngpǐn zuò wán le ma?|Thành phẩm làm xong chưa?",
+     "做完了，现在在包装。|Zuò wán le, xiànzài zài bāozhuāng.|Làm xong rồi, giờ đang đóng gói.",
+     ["我在三号工位。|Wǒ zài sān hào gōngwèi.|Tôi ở vị trí số 3.","数量不多。|Shùliàng bù duō.|Số lượng không nhiều.","在仓库里面。|Zài cāngkù lǐmiàn.|Ở trong kho."]],
+    ["材料够不够？|Cáiliào gòu bú gòu?|Vật liệu đủ không?",
+     "够，不用再拿了。|Gòu, búyòng zài ná le.|Đủ, không cần lấy thêm.",
+     ["我在三号工位。|Wǒ zài sān hào gōngwèi.|Tôi ở vị trí số 3.","他负责这道工序。|Tā fùzé zhè dào gōngxù.|Anh ấy phụ trách công đoạn này.","要今天下午做完。|Yào jīntiān xiàwǔ zuò wán.|Phải làm xong chiều nay."]],
+    ["标签贴好没有？|Biāoqiān tiē hǎo méiyǒu?|Nhãn dán xong chưa?",
+     "已经贴好了。|Yǐjīng tiēhǎo le.|Dán xong rồi.",
+     ["在生产线上。|Zài shēngchǎnxiàn shàng.|Ở trên dây chuyền sản xuất.","数量不多。|Shùliàng bù duō.|Số lượng không nhiều.","我在三号工位。|Wǒ zài sān hào gōngwèi.|Tôi ở vị trí số 3."]],
+    ["出库了吗？|Chūkù le ma?|Xuất kho chưa?",
+     "还没有，下午会出库。|Hái méiyǒu, xiàwǔ huì chūkù.|Chưa, chiều sẽ xuất kho.",
+     ["材料够了。|Cáiliào gòu le.|Vật liệu đủ rồi.","他负责包装。|Tā fùzé bāozhuāng.|Anh ấy phụ trách đóng gói.","我在三号工位。|Wǒ zài sān hào gōngwèi.|Tôi ở vị trí số 3."]]
+  ]
+};
+
+
+/* ===== BÀI 3 ===== */
+VOCAB["3"]=P(`
+请假|qǐngjià|xin nghỉ phép
+事假|shìjià|nghỉ phép việc riêng
+病假|bìngjià|nghỉ phép bệnh
+年假|niánjià|nghỉ phép năm
+调休|tiáoxiū|nghỉ bù
+加班|jiābān|tăng ca
+换班|huànbān|đổi ca
+调班|tiáobān|điều chỉnh ca
+迟到|chídào|đến muộn
+早退|zǎotuì|về sớm
+缺勤|quēqín|vắng mặt
+外出|wàichū|ra ngoài
+上报|shàngbào|báo lên trên
+批准|pīzhǔn|phê duyệt
+同意|tóngyì|đồng ý
+不同意|bù tóngyì|không đồng ý
+原因|yuányīn|lý do
+生病|shēngbìng|bị ốm
+感冒|gǎnmào|cảm
+发烧|fāshāo|sốt
+看医生|kàn yīshēng|đi khám bác sĩ
+请一天|qǐng yì tiān|xin nghỉ 1 ngày
+请半天|qǐng bàn tiān|xin nghỉ nửa ngày
+家里有事|jiālǐ yǒu shì|nhà có việc
+不舒服|bù shūfu|khó chịu / không khoẻ
+要请假|yào qǐngjià|muốn xin nghỉ
+要换班|yào huànbān|muốn đổi ca
+上班时间|shàngbān shíjiān|thời gian làm
+下班时间|xiàbān shíjiān|thời gian tan làm
+替班|tìbān|thay ca / làm thay ca`);
+SENT["3"]=[
+["Nhóm 1 · Xin nghỉ",P(`
+我今天想请一天假。|Wǒ jīntiān xiǎng qǐng yì tiān jià.|Hôm nay tôi muốn xin nghỉ 1 ngày.
+我身体不舒服要休息。|Wǒ shēntǐ bù shūfu yào xiūxí.|Tôi không khoẻ, cần nghỉ ngơi.
+家里有事需要请假。|Jiālǐ yǒu shì xūyào qǐngjià.|Nhà có việc, cần xin nghỉ.
+我想请半天假可以吗？|Wǒ xiǎng qǐng bàntiān jià kěyǐ ma?|Tôi muốn xin nghỉ nửa ngày được không?`)],
+["Nhóm 2 · Nghỉ bù, đổi ca, thay ca",P(`
+明天我调休不来上班。|Míngtiān wǒ tiáoxiū bù lái shàngbān.|Mai tôi nghỉ bù, không đi làm.
+我发烧要去看医生。|Wǒ fāshāo yào qù kàn yīshēng.|Tôi bị sốt, cần đi khám bác sĩ.
+我想换班请帮我安排。|Wǒ xiǎng huànbān qǐng bāng wǒ ānpái.|Tôi muốn đổi ca, nhờ sắp xếp giúp.
+能帮我替班一下吗？|Néng bāng wǒ tìbān yíxià ma?|Có thể thay ca giúp tôi không?`)],
+["Nhóm 3 · Đến muộn, về sớm, duyệt phép",P(`
+我会迟到十分钟左右。|Wǒ huì chídào shí fēnzhōng zuǒyòu.|Tôi sẽ đến muộn khoảng 10 phút.
+我今天想早点下班。|Wǒ jīntiān xiǎng zǎodiǎn xiàbān.|Hôm nay tôi muốn về sớm.
+请上报给主管审核。|Qǐng shàngbào gěi zhǔguǎn shěnhé.|Vui lòng báo lên quản lý xem xét.
+请问假批下来了吗？|Qǐngwèn jià pīxiàlái le ma?|Xin hỏi đơn xin nghỉ đã duyệt chưa?`)]];
+DLG.push(
+{l:"3",title:"Hội thoại 1 — Xin nghỉ ốm",lines:DL(`
+A|主管，我今天不舒服，想请假。|Zhǔguǎn, wǒ jīntiān bù shūfu, xiǎng qǐngjià.|Quản lý, hôm nay tôi không khoẻ, muốn xin nghỉ.
+B|你怎么了？生病了吗？|Nǐ zěnme le? Shēngbìng le ma?|Bạn sao vậy? Bị ốm à?
+A|我发烧了，想回家休息。|Wǒ fāshāo le, xiǎng huíjiā xiūxí.|Tôi bị sốt, muốn về nhà nghỉ ngơi.
+B|你请一天还是半天？|Nǐ qǐng yì tiān háishì bàntiān?|Bạn xin nghỉ 1 ngày hay nửa ngày vậy?
+A|我想请一天。|Wǒ xiǎng qǐng yì tiān.|Tôi muốn xin nghỉ 1 ngày.
+B|可以，我批准了，你回去吧。|Kěyǐ, wǒ pīzhǔn le, nǐ huíqù ba.|Được, tôi phê duyệt rồi, bạn về đi.`)},
+{l:"3",title:"Hội thoại 2 — Đổi ca / thay ca",lines:DL(`
+A|主管，我想换班，可以吗？|Zhǔguǎn, wǒ xiǎng huànbān, kěyǐ ma?|Quản lý, tôi muốn đổi ca, được không?
+B|为什么要换班？|Wèi shénme yào huànbān?|Tại sao muốn đổi ca vậy?
+A|家里有事，上午要回去。|Jiālǐ yǒu shì, shàngwǔ yào huíqù.|Nhà có việc, sáng tôi phải về.
+B|有人能替你吗？|Yǒu rén néng tì nǐ ma?|Có ai thay ca cho bạn không?
+A|小李说可以替我。|Xiǎo Lǐ shuō kěyǐ tì wǒ.|Tiểu Lý nói có thể thay tôi.
+B|好，你跟班长说一下。|Hǎo, nǐ gēn bānzhǎng shuō yíxià.|Được, bạn báo với tổ trưởng nhé.`)},
+{l:"3",title:"Hội thoại 3 — Xin về sớm",lines:DL(`
+A|主管，我身体有点不舒服，想早点下班。|Zhǔguǎn, wǒ shēntǐ yǒudiǎn bù shūfu, xiǎng zǎodiǎn xiàbān.|Quản lý, tôi hơi không khoẻ, muốn xin về sớm.
+B|怎么了？严重吗？|Zěnme le? Yánzhòng ma?|Sao vậy? Có nặng không?
+A|不严重，就是头疼。|Bù yánzhòng, jiùshì tóuténg.|Không nghiêm trọng, chỉ hơi đau đầu.
+B|那工作安排好了吗？|Nà gōngzuò ānpái hǎo le ma?|Vậy công việc đã sắp xếp xong chưa?
+A|差不多了，剩下的明天完成。|Chàbuduō le, shèngxià de míngtiān wánchéng.|Gần xong rồi, phần còn lại mai tôi làm.
+B|可以，早点回去休息。|Kěyǐ, zǎodiǎn huíqù xiūxí.|Được, về sớm nghỉ ngơi đi.`)});
+GRAM["3"]=[
+{title:"给 (gěi)",meaning:"A đưa/cho B cái gì · A làm gì cho B",blocks:[
+{k:"pat",v:"A 给 B + 什么"},{k:"note",v:"(A) A đưa / cho B cái gì."},
+{k:"ex",zh:"我给主管请假条。",py:"Wǒ gěi zhǔguǎn qǐngjiàtiáo.",vi:"Tôi đưa tờ xin nghỉ cho quản lý."},
+{k:"ex",zh:"我已经给领导请假申请了。",py:"Wǒ yǐjīng gěi lǐngdǎo qǐngjià shēnqǐng le.",vi:"Tôi đã gửi đơn xin nghỉ phép cho lãnh đạo rồi."},
+{k:"pat",v:"A 给 B + 做什么"},{k:"note",v:"(B) A làm gì cho B."},
+{k:"ex",zh:"我给他换班。",py:"Wǒ gěi tā huànbān.",vi:"Tôi đổi ca cho anh ấy."},
+{k:"ex",zh:"他给我批假。",py:"Tā gěi wǒ pījià.",vi:"Anh ấy duyệt nghỉ cho tôi."}]},
+{title:"V + 一下 (yíxià)",meaning:"Hành động nhẹ, nhanh, lịch sự",blocks:[
+{k:"pat",v:"V + 一下"},{k:"note",v:"Hành động trong thời gian ngắn, mang sắc thái nhẹ, lịch sự."},
+{k:"ex",zh:"你帮我看一下。",py:"Nǐ bāng wǒ kàn yíxià.",vi:"Bạn giúp tôi xem một chút."},
+{k:"ex",zh:"我去外面看一下。",py:"Wǒ qù wàimiàn kàn yíxià.",vi:"Tôi ra ngoài xem một chút."}]}];
+REFLEX["3"]=[
+["你为什么要请假？|Nǐ wèishénme yào qǐngjià?|Tại sao bạn muốn xin nghỉ?","我发烧了，要去看医生。|Wǒ fāshāo le, yào qù kàn yīshēng.|Tôi bị sốt, phải đi khám bác sĩ.",["小李可以替我。|Xiǎo Lǐ kěyǐ tì wǒ.|Tiểu Lý có thể thay tôi.","请一天。|Qǐng yì tiān.|Xin nghỉ 1 ngày.","我想换成早班。|Wǒ xiǎng huàn chéng zǎobān.|Tôi muốn đổi sang ca sáng."]],
+["你打算请几天假？|Nǐ dǎsuàn qǐng jǐ tiān jià?|Bạn định xin nghỉ mấy ngày?","我想请一天。|Wǒ xiǎng qǐng yì tiān.|Tôi muốn xin nghỉ 1 ngày.",["家里有事。|Jiālǐ yǒu shì.|Nhà có việc.","小李可以替我。|Xiǎo Lǐ kěyǐ tì wǒ.|Tiểu Lý có thể thay tôi.","我想换成早班。|Wǒ xiǎng huàn chéng zǎobān.|Tôi muốn đổi sang ca sáng."]],
+["有人可以替你吗？|Yǒu rén kěyǐ tì nǐ ma?|Có ai thay bạn được không?","小李可以替我。|Xiǎo Lǐ kěyǐ tì wǒ.|Tiểu Lý có thể thay tôi.",["我发烧了。|Wǒ fāshāo le.|Tôi bị sốt.","我想请半天假。|Wǒ xiǎng qǐng bàntiān jià.|Tôi muốn xin nghỉ nửa ngày.","我会迟到十分钟左右。|Wǒ huì chídào shí fēnzhōng zuǒyòu.|Tôi sẽ đến muộn khoảng 10 phút."]],
+["请假批准了吗？|Qǐngjià pīzhǔn le ma?|Đơn xin nghỉ đã duyệt chưa?","批准了，你回去吧。|Pīzhǔn le, nǐ huíqù ba.|Duyệt rồi, bạn về đi.",["家里有事。|Jiālǐ yǒu shì.|Nhà có việc.","小李可以替我。|Xiǎo Lǐ kěyǐ tì wǒ.|Tiểu Lý có thể thay tôi.","我想请一天。|Wǒ xiǎng qǐng yì tiān.|Tôi muốn xin nghỉ 1 ngày."]]];
+
+/* ===== BÀI TẬP (chỉ dùng nội dung trong 3 bài) ===== */
+/* gram: vi | đáp án zh:py | sai zh:py/zh:py/zh:py | ghi chú */
+const GRAMQ={
+"1":`Chiều nay chúng tôi định bắt đầu làm.|我们下午要开工。:Wǒmen xiàwǔ yào kāigōng.|我们下午最开工。:Wǒmen xiàwǔ zuì kāigōng./我们下午几开工。:Wǒmen xiàwǔ jǐ kāigōng./我们下午几十开工。:Wǒmen xiàwǔ jǐshí kāigōng.|Dùng 要 (yào) + động từ để nói ý định, kế hoạch.
+Tổ này hiệu quả nhất.|这个组最有效率。:Zhège zǔ zuì yǒu xiàolǜ.|这个组几有效率。:Zhège zǔ jǐ yǒu xiàolǜ./这个组几十有效率。:Zhège zǔ jǐshí yǒu xiàolǜ./这个组有最效率。:Zhège zǔ yǒu zuì xiàolǜ.|最 (zuì) đứng trước tính từ / động từ để chỉ mức độ cao nhất.
+Kho có mấy chục thùng vật liệu.|仓库有几十箱材料。:Cāngkù yǒu jǐshí xiāng cáiliào.|仓库有最箱材料。:Cāngkù yǒu zuì xiāng cáiliào./仓库有要箱材料。:Cāngkù yǒu yào xiāng cáiliào./仓库几十有箱材料。:Cāngkù jǐshí yǒu xiāng cáiliào.|几十 (jǐshí) + lượng từ + danh từ = khoảng mấy chục.`,
+"2":`Lô này có phải cần làm xong trong hôm nay không?|这批是不是要今天做完？:Zhè pī shì bú shì yào jīntiān zuò wán?|这批每要今天做完？:Zhè pī měi yào jīntiān zuò wán?/这批多久要今天做完？:Zhè pī duō jiǔ yào jīntiān zuò wán?/这批多远要今天做完？:Zhè pī duō yuǎn yào jīntiān zuò wán?|是不是 (shì bú shì) dùng để hỏi xác nhận thông tin.
+Mỗi ngày chúng tôi làm hai lô.|我们每天做两批。:Wǒmen měi tiān zuò liǎng pī.|我们是不是天做两批。:Wǒmen shì bú shì tiān zuò liǎng pī./我们多久天做两批。:Wǒmen duō jiǔ tiān zuò liǎng pī./我们多大天做两批。:Wǒmen duō dà tiān zuò liǎng pī.|每 (měi) + lượng từ + danh từ = “mỗi …”.
+Kho cách chỗ này bao xa?|仓库离这边多远？:Cāngkù lí zhèbiān duō yuǎn?|仓库离这边每远？:Cāngkù lí zhèbiān měi yuǎn?/仓库离这边多重？:Cāngkù lí zhèbiān duō zhòng?/仓库离这边是不是远多？:Cāngkù lí zhèbiān shì bú shì yuǎn duō?|多远 (duō yuǎn) = xa bao nhiêu (khoảng cách).`,
+"3":`Tôi đổi ca cho anh ấy.|我给他换班。:Wǒ gěi tā huànbān.|我他给换班。:Wǒ tā gěi huànbān./给我他换班。:Gěi wǒ tā huànbān./我换班他给。:Wǒ huànbān tā gěi.|A 给 (gěi) B + làm gì: 给 (gěi) đứng trước người nhận (B) và động từ.
+Tôi đã gửi đơn xin nghỉ phép cho lãnh đạo rồi.|我已经给领导请假申请了。:Wǒ yǐjīng gěi lǐngdǎo qǐngjià shēnqǐng le.|我已经领导给请假申请了。:Wǒ yǐjīng lǐngdǎo gěi qǐngjià shēnqǐng le./给我已经领导请假申请了。:Gěi wǒ yǐjīng lǐngdǎo qǐngjià shēnqǐng le./我已经请假申请领导给了。:Wǒ yǐjīng qǐngjià shēnqǐng lǐngdǎo gěi le.|A 给 (gěi) B + cái gì: 给 (gěi) + người nhận + vật được đưa.
+Tôi ra ngoài xem một chút.|我去外面看一下。:Wǒ qù wàimiàn kàn yíxià.|我去外面一下看。:Wǒ qù wàimiàn yíxià kàn./我一下去外面看。:Wǒ yíxià qù wàimiàn kàn./一下我去外面看。:Yíxià wǒ qù wàimiàn kàn.|V + 一下 (yíxià): 一下 (yíxià) đứng sau động từ, nghĩa “một chút”.`};
+/* fill: zh | py | vi | đáp án | sai | ghi chú */
+const FILLQ={
+"1":`早班___忙。|Zǎobān ___ máng.|Ca sáng bận nhất.|最:zuì|要:yào/几:jǐ/几十:jǐshí|最 (zuì) + tính từ = nhất.
+老板___我们加快速度。|Lǎobǎn ___ wǒmen jiākuài sùdù.|Sếp muốn chúng tôi tăng tốc độ.|要:yào|最:zuì/几:jǐ/几十:jǐshí|要 (yào) = muốn / định / sẽ.
+车间有___个人？|Chējiān yǒu ___ gè rén?|Trong xưởng có mấy người?|几:jǐ|最:zuì/要:yào/加快:jiākuài|几 (jǐ) + lượng từ + danh từ: số lượng nhỏ hơn 10.
+我们组有___名工人。|Wǒmen zǔ yǒu ___ míng gōngrén.|Tổ chúng tôi có mấy chục công nhân.|几十:jǐshí|最:zuì/要:yào/加快:jiākuài|几十 (jǐshí) = khoảng mấy chục.`,
+"2":`他___负责这道工序？|Tā ___ fùzé zhè dào gōngxù?|Anh ấy có phải phụ trách công đoạn này không?|是不是:shì bú shì|每:měi/多久:duō jiǔ/多远:duō yuǎn|是不是 (shì bú shì) hỏi xác nhận đúng hay không.
+他们___小时检查一次机器。|Tāmen ___ xiǎoshí jiǎnchá yí cì jīqì.|Mỗi giờ họ kiểm tra máy một lần.|每:měi|是不是:shì bú shì/多久:duō jiǔ/多远:duō yuǎn|每 (měi) = mỗi.
+仓库离这边___？|Cāngkù lí zhèbiān ___?|Kho cách chỗ này bao xa?|多远:duō yuǎn|多久:duō jiǔ/多重:duō zhòng/多高:duō gāo|多远 (duō yuǎn) = xa bao nhiêu.
+这批要做___？|Zhè pī yào zuò ___?|Lô này phải làm bao lâu?|多久:duō jiǔ|多远:duō yuǎn/多重:duō zhòng/多高:duō gāo|多久 (duō jiǔ) = bao lâu.`,
+"3":`我___主管请假条。|Wǒ ___ zhǔguǎn qǐngjiàtiáo.|Tôi đưa tờ xin nghỉ cho quản lý.|给:gěi|一下:yíxià/批准:pīzhǔn/同意:tóngyì|A 给 (gěi) B + cái gì.
+他___我批假。|Tā ___ wǒ pījià.|Anh ấy duyệt nghỉ cho tôi.|给:gěi|一下:yíxià/迟到:chídào/加班:jiābān|A 给 (gěi) B + làm gì.
+你帮我看___。|Nǐ bāng wǒ kàn ___.|Bạn giúp tôi xem một chút.|一下:yíxià|给:gěi/批准:pīzhǔn/同意:tóngyì|V + 一下 (yíxià): hành động nhẹ, lịch sự.
+我发烧要去___。|Wǒ fāshāo yào qù ___.|Tôi bị sốt, cần đi khám bác sĩ.|看医生:kàn yīshēng|请一天:qǐng yì tiān/加班:jiābān/上报:shàngbào|看医生 (kàn yīshēng) = đi khám bác sĩ.`};
+/* order: các từ (zh:py, ngăn cách bằng /) | dấu câu | vi */
+const ORDQ={
+"1":`老板:lǎobǎn/要:yào/我们:wǒmen/加快:jiākuài/速度:sùdù|。|Sếp muốn chúng tôi tăng tốc độ.
+机器:jīqì/要:yào/调整:tiáozhěng/一下:yíxià/再:zài/继续:jìxù/做:zuò|。|Máy phải chỉnh lại rồi mới làm tiếp.
+谁:shéi/负责:fùzé/这个:zhège/位置:wèizhì|？|Ai phụ trách vị trí này?
+这个:zhège/要:yào/重新:chóngxīn/做:zuò/一次:yícì|。|Cái này cần làm lại một lần nữa.`,
+"2":`我们:wǒmen/在:zài/流水线:liúshuǐxiàn/上:shàng/加工:jiāgōng|。|Chúng tôi gia công trên dây chuyền.
+半成品:bànchéngpǐn/需要:xūyào/检查:jiǎnchá/一下:yíxià|。|Bán thành phẩm cần kiểm tra một chút.
+他们:tāmen/每:měi/小时:xiǎoshí/检查:jiǎnchá/一次:yícì/机器:jīqì|。|Mỗi giờ họ kiểm tra máy một lần.
+这批:zhèpī/物料:wùliào/已经:yǐjīng/入库:rùkù/了:le|。|Lô vật liệu này đã nhập kho rồi.`,
+"3":`家里:jiālǐ/有事:yǒushì/需要:xūyào/请假:qǐngjià|。|Nhà có việc, cần xin nghỉ.
+我:wǒ/发烧:fāshāo/要:yào/去:qù/看医生:kànyīshēng|。|Tôi bị sốt, cần đi khám bác sĩ.
+能:néng/帮:bāng/我:wǒ/替班:tìbān/一下:yíxià/吗:ma|？|Có thể thay ca giúp tôi không?
+我:wǒ/给:gěi/他:tā/换班:huànbān|。|Tôi đổi ca cho anh ấy.`};
+/* dịch tự luận: zh | py | vi */
+const Z2V={
+"1":P(`
+今天这批要做完。|Jīntiān zhè pī yào zuò wán.|Lô hôm nay phải làm xong.
+做的时候小心一点。|Zuò de shíhou xiǎoxīn yìdiǎn.|Lúc làm hãy cẩn thận một chút.
+工具拿好了没有？|Gōngjù ná hǎo le méiyǒu?|Đã lấy dụng cụ xong chưa?
+这边需要一个人帮忙。|Zhèbiān xūyào yí gè rén bāngmáng.|Bên này cần một người giúp.
+再等几分钟就好了。|Zài děng jǐ fēnzhōng jiù hǎo le.|Đợi thêm vài phút là xong.`),
+"2":P(`
+这批在生产线上加工。|Zhè pī zài shēngchǎnxiàn shàng jiāgōng.|Lô này gia công trên dây chuyền sản xuất.
+半成品需要检查。|Bàn chéngpǐn xūyào jiǎnchá.|Bán thành phẩm cần kiểm tra.
+包装要贴标签。|Bāozhuāng yào tiē biāoqiān.|Đóng gói phải dán nhãn.
+条码要对一下。|Tiáomǎ yào duì yíxià.|Mã vạch cần đối chiếu một chút.
+数据写在记录表上。|Shùjù xiě zài jìlù biǎo shàng.|Số liệu ghi trên bảng ghi.`),
+"3":P(`
+我下午不能上班。|Wǒ xiàwǔ bù néng shàngbān.|Chiều nay tôi không thể đi làm.
+我家里有急事。|Wǒ jiālǐ yǒu jíshì.|Nhà tôi có việc gấp.
+我想换成早班。|Wǒ xiǎng huàn chéng zǎobān.|Tôi muốn đổi sang ca sáng.
+我想申请事假。|Wǒ xiǎng shēnqǐng shìjià.|Tôi muốn xin nghỉ phép việc riêng.
+我需要报备主管。|Wǒ xūyào bàobèi zhǔguǎn.|Tôi cần báo cáo (báo trước) với quản lý.`)};
+/* vi là đề bài, zh/py là đáp án tham khảo */
+const V2Z={
+"1":P(`
+从这里开始做。|Cóng zhèlǐ kāishǐ zuò.|Bắt đầu làm từ chỗ này nhé.
+这批做好了吗？|Zhè pī zuòhǎo le ma?|Lô hàng này làm xong chưa?
+放慢一点，不用太急。|Fàngmàn yìdiǎn, bùyòng tài jí.|Làm chậm một chút, đừng vội.
+小心一点，别做错。|Xiǎoxīn yìdiǎn, bié zuò cuò.|Làm cẩn thận, đừng để sai.
+工具在哪儿？|Gōngjù zài nǎr?|Dụng cụ ở đâu vậy?`),
+"2":P(`
+我在这个流水线上工作。|Wǒ zài zhège liúshuǐxiàn shàng gōngzuò.|Tôi làm ở dây chuyền này.
+这批要今天做完。|Zhè pī yào jīntiān zuò wán.|Lô hàng này phải làm xong hôm nay.
+成品已经包装了。|Chéngpǐn yǐjīng bāozhuāng le.|Thành phẩm đã đưa đi đóng gói.
+规格要一样。|Guīgé yào yíyàng.|Quy cách phải giống nhau.
+尺寸不对。|Chǐcùn búduì.|Kích thước không đúng.`),
+"3":P(`
+我想请上午的假。|Wǒ xiǎng qǐng shàngwǔ de jià.|Tôi muốn xin nghỉ buổi sáng.
+家里有事，我需要请假。|Jiālǐ yǒu shì, wǒ xūyào qǐngjià.|Tôi cần xin nghỉ để giải quyết việc gia đình.
+我想请下午半天假。|Wǒ xiǎng qǐng xiàwǔ bàntiān jià.|Tôi muốn xin nghỉ nửa buổi chiều.
+明天我不能上班。|Míngtiān wǒ bù néng shàngbān.|Ngày mai tôi không thể đi làm được.
+我需要请一天假去看医生。|Wǒ xūyào qǐng yì tiān jià qù kàn yīshēng.|Tôi cần xin nghỉ một ngày để đi bệnh viện.`)};
+
+/* ===================== ỨNG DỤNG ===================== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const pct=(c,t)=>t?Math.round(c*100/t):0;
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const zp=s=>{const i=s.indexOf(":");return {zh:s.slice(0,i),py:s.slice(i+1)};};
+const rows=s=>s.trim().split("\n").map(r=>r.split("|"));
+const Z=(zh,py,c="")=>`<span class="zp ${c}"><span class="zh" lang="zh-CN">${esc(zh)}</span><span class="py">${esc(py)}</span></span>`;
+const SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+const spk=t=>`<button class="spk" data-act="speak" data-t="${esc(t.replace(/_+/g,""))}" aria-label="Nghe phát âm">${SPK}</button>`;
+function speak(t){if(!("speechSynthesis" in window))return;const u=new SpeechSynthesisUtterance(t);u.lang="zh-CN";u.rate=.8;const v=speechSynthesis.getVoices().find(v=>/^zh/i.test(v.lang));if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u);}
+
+const LN={"1":"Bài 1 · Các câu giao tiếp thông dụng trong công xưởng","2":"Bài 2 · Từ vựng công xưởng – ghép câu cơ bản","3":"Bài 3 · Xin phép – nghỉ phép","all":"Ôn tập tổng hợp (Bài 1 + 2 + 3)"};
+const LB={"1":"Bài 1","2":"Bài 2","3":"Bài 3","all":"Tổng hợp"};
+const LS={"1":["1"],"2":["2"],"3":["3"],all:["1","2","3"]};
+const KN={vocab:"Trắc nghiệm từ vựng",gram:"Chọn ngữ pháp đúng",fill:"Điền từ",order:"Sắp xếp câu",z2v:"Dịch Trung → Việt",v2z:"Dịch Việt → Trung",talk:"Tình huống giao tiếp"};
+const KS={vocab:"Từ vựng",gram:"Ngữ pháp",fill:"Điền từ",order:"Sắp xếp câu",z2v:"Trung → Việt",v2z:"Việt → Trung",talk:"Tình huống"};
+const KO=Object.keys(KN);
+
+const WORDS=[];["1","2","3"].forEach(l=>VOCAB[l].forEach(w=>WORDS.push({...w,l})));
+const LEX={};WORDS.forEach(w=>LEX[w.zh]=w.py);
+Object.assign(LEX,{"要":"yào","最":"zuì","几十":"jǐshí","几":"jǐ","是不是":"shì bú shì","每":"měi","多":"duō","给":"gěi","一下":"yíxià","什么":"shénme","做":"zuò"});
+const LK=Object.keys(LEX).sort((a,b)=>b.length-a.length);
+const pyOf=s=>s.replace(/[\u4e00-\u9fff]+/g,run=>{const o=[];let i=0;while(i<run.length){const k=LK.find(k=>run.startsWith(k,i));if(!k){o.push("?");i++;}else{o.push(LEX[k]);i+=k.length;}}return o.join(" ");});
+
+const EX={};["1","2","3"].forEach(l=>EX[l]={gram:rows(GRAMQ[l]),fill:rows(FILLQ[l]),order:rows(ORDQ[l]),z2v:Z2V[l],v2z:V2Z[l],reflex:REFLEX[l]});
+
+/* ---------- tạo câu hỏi ---------- */
+const mk=(k,l,prompt,opts,reveal,note)=>({k,l,t:"mc",prompt,opts,reveal,note:note||""});
+const wordsOf=s=>s.toLowerCase().split(/[\s\/;,]+/).filter(Boolean);
+function vocabQ(w,pool){
+  const ws=new Set(wordsOf(w.vi));
+  const good=x=>{if(x.zh===w.zh||x.zh.includes(w.zh)||w.zh.includes(x.zh))return false;const xs=wordsOf(x.vi),sh=xs.filter(t=>ws.has(t)).length;return !(sh>=2||(sh>=1&&Math.min(xs.length,ws.size)<=2));};
+  let c=shuffle(pool.filter(good));
+  if(c.length<3)c=c.concat(shuffle(pool.filter(x=>x.zh!==w.zh&&!c.includes(x))));
+  const ds=c.slice(0,3),rv=[{lab:"",zh:w.zh,py:w.py,vi:w.vi}];
+  if(Math.random()<.5)return mk("vocab",w.l,{label:"Từ này nghĩa là gì?",zh:w.zh,py:w.py,big:1},[{t:w.vi,ok:true},...ds.map(x=>({t:x.vi,ok:false}))],rv);
+  return mk("vocab",w.l,{label:"Chọn từ tiếng Trung đúng",vi:w.vi},[{zh:w.zh,py:w.py,ok:true},...ds.map(x=>({zh:x.zh,py:x.py,ok:false}))],rv);
+}
+function gramQ(l,r){
+  const a=zp(r[1]);
+  return mk("gram",l,{label:"Chọn câu tiếng Trung đúng ngữ pháp",vi:r[0]},[{...a,ok:true},...r[2].split("/").map(s=>({...zp(s),ok:false}))],[{lab:"",...a,vi:r[0]}],r[3]);
+}
+function fillQ(l,r){
+  const a=zp(r[3]);
+  return mk("fill",l,{label:"Điền từ vào chỗ trống",zh:r[0],py:r[1],hint:r[2]},[{...a,ok:true},...r[4].split("/").map(s=>({...zp(s),ok:false}))],[{lab:"",zh:r[0].replace("___",a.zh),py:r[1].replace("___",a.py),vi:r[2]}],r[5]);
+}
+function orderQ(l,r){
+  const tk=r[0].split("/").map(zp),p=r[1];
+  return {k:"order",l,t:"order",prompt:{label:"Sắp xếp các từ thành câu đúng",vi:r[2]},tokens:tk,
+    reveal:[{lab:"",zh:tk.map(t=>t.zh).join("")+p,py:cap(tk.map(t=>t.py).join(" "))+(p==="？"?"?":"."),vi:r[2]}],
+    note:"Thứ tự theo câu mẫu trong bài. Nếu câu bạn xếp vẫn đúng nghĩa, hãy hỏi giáo viên."};
+}
+function selfQ(l,r,dir){
+  const rv=[{lab:"Đáp án tham khảo",zh:r.zh,py:r.py,vi:r.vi}];
+  return dir==="z2v"?{k:"z2v",l,t:"self",prompt:{label:"Dịch câu sau sang tiếng Việt",zh:r.zh,py:r.py},reveal:rv,ph:"Viết nghĩa tiếng Việt của bạn (không bắt buộc)…"}
+    :{k:"v2z",l,t:"self",prompt:{label:"Dịch câu sau sang tiếng Trung",vi:r.vi},reveal:rv,ph:"Viết bằng chữ Hán hoặc pinyin (không bắt buộc)…"};
+}
+const GEN=/^(好|可以|明白|没问题|对|那太好了)/;
+const op1=s=>s.split("，")[0];
+function talkItems(l){
+  const out=[],ds=DLG.filter(d=>d.l===l);
+  ds.forEach(d=>{for(let i=0;i<d.lines.length;i+=2){
+    const A=d.lines[i],B=d.lines[i+1];let pool=[];
+    ds.forEach(e=>{if(e!==d)for(let j=1;j<e.lines.length;j+=2)pool.push(e.lines[j]);});
+    let f=pool.filter(x=>!GEN.test(x.zh)&&op1(x.zh)!==op1(B.zh));if(f.length<3)f=pool.filter(x=>x.zh!==B.zh);
+    const ds3=shuffle(f).slice(0,3);
+    out.push(mk("talk",l,{label:"A nói — B đáp thế nào cho hợp?",zh:A.zh,py:A.py},[{zh:B.zh,py:B.py,vi:B.vi,ok:true},...ds3.map(x=>({zh:x.zh,py:x.py,vi:x.vi,ok:false}))],[{lab:"A",zh:A.zh,py:A.py,vi:A.vi},{lab:"B",zh:B.zh,py:B.py,vi:B.vi}],d.title));
+  }});
+  EX[l].reflex.forEach(([q,a,w])=>{
+    const [qz,qp,qv]=q.split("|"),[az,ap,av]=a.split("|");
+    out.push(mk("talk",l,{label:"Trả lời câu hỏi này thế nào cho đúng?",zh:qz,py:qp},[{zh:az,py:ap,vi:av,ok:true},...w.map(s=>{const [z,p,v]=s.split("|");return {zh:z,py:p,vi:v,ok:false};})],[{lab:"A",zh:qz,py:qp,vi:qv},{lab:"B",zh:az,py:ap,vi:av}],"Phản xạ hỏi–đáp"));
+  });
+  return out;
+}
+function items(ls,k){
+  if(k==="vocab"){const pool=[],seen=new Set();WORDS.forEach(w=>{if(ls.includes(w.l)&&!seen.has(w.zh)){seen.add(w.zh);pool.push(w);}});return pool.map(w=>vocabQ(w,pool));}
+  const out=[];
+  ls.forEach(l=>{const E=EX[l];
+    if(k==="gram")E.gram.forEach(r=>out.push(gramQ(l,r)));
+    if(k==="fill")E.fill.forEach(r=>out.push(fillQ(l,r)));
+    if(k==="order")E.order.forEach(r=>out.push(orderQ(l,r)));
+    if(k==="z2v")E.z2v.forEach(r=>out.push(selfQ(l,r,"z2v")));
+    if(k==="v2z")E.v2z.forEach(r=>out.push(selfQ(l,r,"v2z")));
+    if(k==="talk")out.push(...talkItems(l));});
+  return out;
+}
+function buildRound(ls,ks,n){
+  const lists=ks.map(k=>shuffle(items(ls,k))),out=[];let i=0;
+  while(out.length<n&&lists.some(x=>x.length)){const x=lists[i%lists.length];if(x.length)out.push(x.shift());i++;}
+  return out;
+}
+const countOf=(ls,k)=>k==="vocab"?new Set(WORDS.filter(w=>ls.includes(w.l)).map(w=>w.zh)).size:items(ls,k).length;
+
+/* ---------- trạng thái & lưu ---------- */
+const KEY="cx2_on_tap_v1";let ST={};
+try{ST=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){ST={};}
+const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify(ST));}catch(e){}};
+let S={view:"home",l:"1",kinds:KO.slice(),n:20},V={l:"1",s:"vocab"},R=null;
+
+/* ---------- hiển thị ---------- */
+function revealHTML(q){return q.reveal.map(r=>`<div class="ln"><b>${esc(r.lab&&r.lab.length<3?r.lab:"")}</b><div>${r.lab&&r.lab.length>=3?`<div class="mu">${esc(r.lab)}</div>`:""}<div style="display:flex;gap:8px;align-items:center">${Z(r.zh,r.py,"left")}${spk(r.zh)}</div><div class="vi">${esc(r.vi)}</div></div></div>`).join("");}
+function promptHTML(p){
+  let h=`<div class="qlabel">${esc(p.label)}</div>`;
+  if(p.zh)h+=`<div class="qz">${Z(p.zh,p.py,p.big?"xl":"lg")}${spk(p.zh)}</div>`;
+  if(p.vi)h+=`<div class="qvi">${esc(p.vi)}</div>`;
+  if(p.hint)h+=`<div class="qhint">${esc(p.hint)}</div>`;
+  return h;
+}
+function runHTML(){
+  const q=R.qs[R.i],g=R.phase==="graded",last=R.i+1>=R.qs.length;
+  let h=`<div class="rh"><span>Câu <b>${R.i+1}</b>/${R.qs.length}</span><div class="prog"><i style="width:${(R.i+(g?1:0))/R.qs.length*100}%"></i></div><span>Đúng <b>${R.score}</b></span><button class="btn sm ghost" data-act="exit">Thoát</button></div>`;
+  h+=`<div class="qcard"><div class="kind">${KN[q.k]} · ${LB[q.l]}</div>`+promptHTML(q.prompt);
+  const fb=()=>`<div class="fb ${R.ok?"ok":"bd"}"><h4>${R.ok?"Chính xác!":"Chưa đúng — xem đáp án:"}</h4>${revealHTML(q)}${q.note?`<div class="nt">${esc(q.note)}</div>`:""}</div>`;
+  if(q.t==="mc"){
+    h+=`<div class="opts">`+q.opts.map((o,i)=>{
+      let c="opt";if(g){if(o.ok)c+=" ok";else if(R.sel===i)c+=" bd";}
+      const body=o.zh?Z(o.zh,o.py,"left")+(g&&o.vi?`<span class="vv">${esc(o.vi)}</span>`:""):`<span class="t">${esc(o.t)}</span>`;
+      return `<button class="${c}" data-act="pick" data-i="${i}" ${g?"disabled":""}><span class="k">${"ABCD"[i]}</span><span>${body}</span></button>`;}).join("")+`</div>`;
+    if(g)h+=fb();
+  }else if(q.t==="order"){
+    const u=R.u;
+    h+=`<div class="ansline ${g?(R.ok?"ok":"bd"):""}">`+(u.ans.length?u.ans.map((t,i)=>`<button class="tk" data-act="unplace" data-i="${i}" ${g?"disabled":""}>${Z(t.zh,t.py,"sm")}</button>`).join(""):`<span class="ph">Chạm vào các từ bên dưới theo đúng thứ tự…</span>`)+`</div>`;
+    h+=`<div class="bank">`+u.bank.map((t,i)=>`<button class="tk" data-act="place" data-i="${i}">${Z(t.zh,t.py,"sm")}</button>`).join("")+`</div>`;
+    if(!g)h+=`<div class="two"><button class="btn ghost" data-act="clear">Xếp lại</button><button class="btn cta" data-act="check" ${u.bank.length?"disabled":""}>Kiểm tra</button></div>`;
+    else h+=fb();
+  }else{
+    if(R.phase==="ask")h+=`<textarea id="tx" rows="3" placeholder="${esc(q.ph)}">${esc(R.u.text)}</textarea><button class="btn cta full" data-act="reveal">Xem đáp án tham khảo</button>`;
+    else{
+      if(R.u.text)h+=`<div class="mine"><b>Bài của bạn:</b> ${esc(R.u.text)}</div>`;
+      h+=`<div class="fb">${revealHTML(q)}<div class="nt">Câu của bạn có thể khác nhưng vẫn đúng nghĩa — hãy tự đối chiếu.</div></div>`;
+      if(R.phase==="revealed")h+=`<p><b>Bạn thấy mình làm thế nào?</b></p><div class="two"><button class="btn ghost" data-act="grade" data-v="n">Chưa đúng — cần ôn</button><button class="btn ok" data-act="grade" data-v="y">Mình làm đúng</button></div>`;
+    }
+  }
+  if(g)h+=`<button class="btn cta full" data-act="next">${last?"Xem kết quả":"Câu tiếp theo →"}</button>`;
+  return h+`</div>`;
+}
+function resultHTML(){
+  const t=R.qs.length,p=pct(R.score,t);
+  const msg=p>=90?"Xuất sắc! Bạn nắm rất chắc phần này.":p>=70?"Khá tốt — xem lại vài câu sai bên dưới.":"Cần ôn thêm — xem lại kiến thức rồi làm lại nhé.";
+  let h=`<div class="setup" style="text-align:center"><div class="mu">${esc(LN[R.l])}${R.mode==="retry"?" · làm lại câu sai":""}</div><div class="ring" style="--p:${p}"><div><b>${R.score}/${t}</b><span>${p}% đúng</span></div></div><p>${msg}</p>`;
+  h+=`<div class="bars" style="text-align:left">`+KO.filter(k=>R.by[k]).map(k=>{const [c,n]=R.by[k];return `<div class="bar"><span>${KS[k]}</span><div class="prog"><i style="width:${pct(c,n)}%"></i></div><span>${c}/${n}</span></div>`;}).join("")+`</div>`;
+  if(R.wrong.length){h+=`<h3 style="text-align:left">Câu cần xem lại (${R.wrong.length})</h3><div style="text-align:left">`+R.wrong.map(q=>`<div class="wi"><div class="kd">${KN[q.k]}</div>${promptHTML(q.prompt)}<div class="fb ok" style="margin-top:8px"><b>Đáp án:</b>${revealHTML(q)}</div></div>`).join("")+`</div>`;}
+  h+=`<div class="acts">`+(R.wrong.length?`<button class="btn cta" data-act="retry">Làm lại ${R.wrong.length} câu sai</button>`:"")+`<button class="btn" data-act="again">Lượt mới (đảo thứ tự câu hỏi)</button><button class="btn" data-act="review" data-l="${R.l==="all"?"1":R.l}">Xem lại kiến thức</button><button class="btn ghost" data-act="home">Về trang chủ</button></div></div>`;
+  return h;
+}
+function homeHTML(){
+  let h=`<h2>Chọn bài để ôn tập</h2><p class="mu">Mỗi bài: xem lại kiến thức → luyện tập 7 dạng bài. Có phản hồi đúng/sai ngay, không giới hạn thời gian, làm lại bao nhiêu lần cũng được.</p><div class="grid">`;
+  ["1","2","3","all"].forEach(l=>{
+    const s=ST[l];
+    h+=`<div class="lcard"><h3>${esc(LN[l])}</h3><div class="lstat">${s?`Gần nhất: <b>${s.last[0]}/${s.last[1]}</b> (${pct(s.last[0],s.last[1])}%) · Tốt nhất: <b>${s.best}%</b> · ${s.n} lượt`:"Chưa làm lượt nào."}</div><div class="btns"><button class="btn" data-act="review" data-l="${l==="all"?"1":l}">Xem lại kiến thức</button><button class="btn cta" data-act="setup" data-l="${l}">Luyện tập</button></div></div>`;
+  });
+  return h+`</div><div class="tip"><b>Cách dùng:</b> chữ Hán nào cũng có pinyin đi kèm; bấm biểu tượng loa để nghe. Dạng dịch Trung–Việt / Việt–Trung không chấm tự động: xem đáp án tham khảo rồi tự đánh giá. Kết quả được lưu ngay trên trình duyệt này.</div>`;
+}
+function setupHTML(){
+  const ls=LS[S.l];
+  let h=`<h2>${esc(LN[S.l])}</h2><div class="setup"><p><b>Chọn dạng bài</b> (có thể chọn nhiều):</p><div class="chips">`+KO.map(k=>`<button class="chip" data-act="kind" data-k="${k}" aria-pressed="${S.kinds.includes(k)}">${KS[k]} <small>${countOf(ls,k)}</small></button>`).join("")+`</div>`;
+  const total=S.kinds.reduce((a,k)=>a+countOf(ls,k),0);
+  h+=`<p><b>Số câu trong lượt này:</b></p><div class="pills">`+[10,20,30].filter(n=>n<total).map(n=>`<button class="pill" data-act="n" data-v="${n}" aria-pressed="${S.n===n}">${n} câu</button>`).join("")+`<button class="pill" data-act="n" data-v="all" aria-pressed="${S.n==="all"||S.n>=total}">Tất cả (${total})</button></div>`;
+  h+=`<p class="mu">Câu hỏi được xáo trộn mỗi lượt mới; các dạng bài xen kẽ nhau.</p><div class="acts"><button class="btn cta" data-act="start" ${total?"":"disabled"}>Bắt đầu luyện tập</button><button class="btn" data-act="review" data-l="${S.l==="all"?"1":S.l}">Xem lại kiến thức trước</button></div></div>`;
+  return h;
+}
+function reviewHTML(){
+  const l=V.l;
+  let h=`<h2>Xem lại kiến thức</h2><div class="tabs">`+["1","2","3"].map(x=>`<button data-act="rl" data-l="${x}" aria-pressed="${l===x}">${LB[x]}</button>`).join("")+`</div><p class="mu">${esc(LN[l])}</p><div class="tabs">`+[["vocab","Từ vựng"],["sent","Mẫu câu"],["dlg","Hội thoại"],["gram","Ngữ pháp"]].map(([k,t])=>`<button data-act="rs" data-s="${k}" aria-pressed="${V.s===k}">${t}</button>`).join("")+`</div>`;
+  if(V.s==="vocab")h+=`<div class="vgrid">`+VOCAB[l].map(w=>`<div class="vc">${Z(w.zh,w.py,"")}${spk(w.zh)}<div class="vi">${esc(w.vi)}</div></div>`).join("")+`</div>`;
+  if(V.s==="sent")SENT[l].forEach(([g,it])=>{h+=`<div class="dh">${esc(g)}</div>`+it.map(s=>`<div class="sent"><div>${Z(s.zh,s.py,"left")}<div class="vi">→ ${esc(s.vi)}</div></div>${spk(s.zh)}</div>`).join("");});
+  if(V.s==="dlg")DLG.filter(d=>d.l===l).forEach(d=>{h+=`<div class="dh">${esc(d.title)}</div>`+d.lines.map(x=>`<div class="sent"><b style="color:var(--ac)">${x.spk}</b><div style="flex:1">${Z(x.zh,x.py,"left")}<div class="vi">→ ${esc(x.vi)}</div></div>${spk(x.zh)}</div>`).join("");});
+  if(V.s==="gram")GRAM[l].forEach(g=>{h+=`<div class="panel" style="margin:10px 0"><h3>${esc(g.title)}</h3><div class="mu">${esc(g.meaning)}</div>`+g.blocks.map(b=>{
+    if(b.k==="pat")return `<div class="pat">${esc(b.v)}<span class="py">${esc(pyOf(b.v))}</span></div>`;
+    if(b.k==="note")return `<div>${esc(b.v)}</div>`;
+    if(b.k==="list")return `<div class="lst">`+b.v.map(r=>`<span class="zh" lang="zh-CN">${esc(r[0])}</span><span class="p">${esc(r[1])}</span><span>${esc(r[2])}</span>`).join("")+`</div>`;
+    return `<div class="sent"><div>${Z(b.zh,b.py,"left")}<div class="vi">→ ${esc(b.vi)}</div></div>${spk(b.zh)}</div>`;}).join("")+`</div>`;});
+  return h+`<div class="acts"><button class="btn cta" data-act="setup" data-l="${l}">Luyện tập ${LB[l]}</button></div>`;
+}
+function statsHTML(){
+  const L=["1","2","3","all"];
+  let h=`<h2>Thống kê kết quả</h2><div class="panel"><div class="tbl-w"><table class="tbl"><tr><th>Phần</th><th>Lượt</th><th>Gần nhất</th><th>Tốt nhất</th><th>Tích lũy</th></tr>`+L.map(l=>{const s=ST[l];return `<tr><td>${LB[l]}</td>`+(s?`<td>${s.n}</td><td>${pct(s.last[0],s.last[1])}%</td><td>${s.best}%</td><td>${pct(s.c,s.t)}%</td>`:`<td colspan="4" class="mu">chưa làm</td>`)+`</tr>`;}).join("")+`</table></div></div>`;
+  h+=`<h3 style="margin-top:16px">Tỉ lệ đúng theo dạng bài (tích lũy)</h3><div class="panel"><div class="tbl-w"><table class="tbl"><tr><th>Dạng bài</th>`+L.map(l=>`<th>${LB[l]}</th>`).join("")+`</tr>`+KO.map(k=>`<tr><td>${KS[k]}</td>`+L.map(l=>{const a=ST[l]&&ST[l].k[k];return `<td>${a?pct(a[0],a[1])+"%":"–"}</td>`;}).join("")+`</tr>`).join("")+`</table></div></div>`;
+  return h+`<div class="acts"><button class="btn" data-act="home">Về trang chủ</button><button class="btn ghost" data-act="clearstats">Xoá thống kê</button></div>`;
+}
+function render(){
+  const a=$("#app");
+  a.innerHTML=S.view==="home"?homeHTML():S.view==="setup"?setupHTML():S.view==="review"?reviewHTML():S.view==="stats"?statsHTML():S.view==="run"?runHTML():resultHTML();
+  window.scrollTo(0,0);
+}
+
+/* ---------- luồng làm bài ---------- */
+function initQ(){
+  const q=R.qs[R.i];R.phase="ask";R.sel=null;R.ok=false;R.u={text:""};
+  if(q.t==="mc")q.opts=shuffle(q.opts);
+  if(q.t==="order"){let b;const o=q.tokens.map(t=>t.zh).join();do{b=shuffle(q.tokens);}while(b.length>1&&b.map(t=>t.zh).join()===o);R.u.bank=b;R.u.ans=[];}
+}
+function startRound(qs,mode){R={l:S.l,qs,i:0,score:0,wrong:[],by:{},mode,phase:"ask",u:{}};initQ();S.view="run";render();}
+function start(){const n=S.n==="all"?Infinity:S.n;const qs=buildRound(LS[S.l],S.kinds,n);if(qs.length)startRound(qs,"full");}
+function record(ok){
+  const q=R.qs[R.i];R.ok=ok;if(ok)R.score++;else R.wrong.push(q);
+  const a=R.by[q.k]||(R.by[q.k]=[0,0]);if(ok)a[0]++;a[1]++;R.phase="graded";
+}
+function finish(){
+  if(R.mode==="full"){
+    const s=ST[R.l]||(ST[R.l]={n:0,c:0,t:0,best:0,last:null,k:{}}),t=R.qs.length;
+    s.n++;s.c+=R.score;s.t+=t;s.last=[R.score,t];s.best=Math.max(s.best,pct(R.score,t));
+    Object.entries(R.by).forEach(([k,v])=>{const a=s.k[k]||(s.k[k]=[0,0]);a[0]+=v[0];a[1]+=v[1];});persist();
+  }
+  S.view="result";render();
+}
+const nextQ=()=>{if(R.phase!=="graded")return;if(R.i+1>=R.qs.length)finish();else{R.i++;initQ();render();}};
+
+document.addEventListener("click",e=>{
+  const el=e.target.closest("[data-act]");if(!el)return;
+  const act=el.dataset.act,d=el.dataset,q=R&&R.qs&&R.qs[R.i];
+  switch(act){
+    case "home":S.view="home";render();break;
+    case "stats":S.view="stats";render();break;
+    case "big":{const b=document.documentElement.classList.toggle("big");el.textContent=b?"Chữ thường":"Chữ lớn (chiếu lớp)";break;}
+    case "speak":speak(d.t);break;
+    case "setup":S.l=d.l;S.view="setup";render();break;
+    case "kind":{const k=d.k,i=S.kinds.indexOf(k);if(i>=0){if(S.kinds.length>1)S.kinds.splice(i,1);}else S.kinds.push(k);render();break;}
+    case "n":S.n=d.v==="all"?"all":parseInt(d.v,10);render();break;
+    case "start":start();break;
+    case "again":start();break;
+    case "review":V.l=d.l;S.view="review";render();break;
+    case "rl":V.l=d.l;render();break;
+    case "rs":V.s=d.s;render();break;
+    case "exit":if(confirm("Thoát lượt này? Kết quả lượt này sẽ không được lưu.")){S.view="home";render();}break;
+    case "pick":if(R.phase==="ask"){R.sel=+d.i;record(q.opts[R.sel].ok);render();}break;
+    case "place":if(R.phase==="ask"){R.u.ans.push(R.u.bank.splice(+d.i,1)[0]);render();}break;
+    case "unplace":if(R.phase==="ask"){R.u.bank.push(R.u.ans.splice(+d.i,1)[0]);render();}break;
+    case "clear":R.u.bank=R.u.bank.concat(R.u.ans);R.u.ans=[];render();break;
+    case "check":if(R.phase==="ask"&&!R.u.bank.length){record(R.u.ans.map(t=>t.zh).join()===q.tokens.map(t=>t.zh).join());render();}break;
+    case "reveal":{const tx=$("#tx");R.u.text=tx?tx.value.trim():"";R.phase="revealed";render();break;}
+    case "grade":record(d.v==="y");render();break;
+    case "next":nextQ();break;
+    case "retry":{const qs=R.wrong.slice();startRound(qs,"retry");break;}
+    case "clearstats":if(confirm("Xoá toàn bộ thống kê đã lưu trên trình duyệt này?")){ST={};persist();render();}break;
+  }
+});
+document.addEventListener("keydown",e=>{
+  if(S.view!=="run"||e.ctrlKey||e.metaKey||e.altKey||(e.target.closest&&e.target.closest("textarea")))return;
+  const q=R.qs[R.i];
+  if(R.phase==="ask"&&q.t==="mc"){const i="1234".indexOf(e.key);if(i>=0&&q.opts[i]){R.sel=i;record(q.opts[i].ok);render();}}
+  else if(R.phase==="graded"&&(e.key==="Enter"||e.key==="ArrowRight")){e.preventDefault();nextQ();}
+});
+if(!("speechSynthesis" in window))document.body.classList.add("nospeech");
+render();
+
+</script>
+</body>
+</html>
